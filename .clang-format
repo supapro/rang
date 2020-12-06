@@ -3,12 +3,12 @@
   IndentWidth: 8,
   BreakBeforeBraces: Linux,
   AllowShortFunctionsOnASingleLine: false,
-  AllowShortIfStatementsOnASingleLine: Never,
+  AllowShortIfStatementsOnASingleLine: false,
   Standard: Auto,
   IndentCaseLabels: false,
   AlignAfterOpenBracket: Align,
   AlignConsecutiveAssignments: true,
   AlignOperands: false,
   AlignTrailingComments: true,
-  ColumnLimit: 100
+  ColumnLimit: 100,
 }
