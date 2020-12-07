@@ -19,10 +19,12 @@ void DirectoryListing::update()
                           if (entry1.is_directory() != entry2.is_directory()) {
                                   return entry1.is_directory();
                           }
-                          return entry1.path().filename().string() < entry2.path().filename().string();
+                          return entry1.path().filename().string() <
+                              entry2.path().filename().string();
                   });
         contents.resize(filtered.size());
-        transform(
-            filtered.begin(), filtered.end(), contents.begin(),
-            [](fs::directory_entry entry) -> std::string { return entry.path().filename().string(); });
+        transform(filtered.begin(), filtered.end(), contents.begin(),
+                  [](fs::directory_entry entry) -> std::string {
+                          return entry.path().filename().string();
+                  });
 }
