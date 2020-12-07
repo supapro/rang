@@ -37,7 +37,8 @@ int main(int argc, char *argv[])
                           if (entry1.is_directory() != entry2.is_directory()) {
                                   return entry1.is_directory();
                           }
-                          return entry1.path().filename().string() < entry2.path().filename().string();
+                          return entry1.path().filename().string() <
+                              entry2.path().filename().string();
                   });
         for (auto entry : filtered) {
                 wprintw(my_win, "%s\n", entry.path().filename().c_str());
