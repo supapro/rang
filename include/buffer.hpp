@@ -8,21 +8,21 @@
 
 namespace fs = std::filesystem;
 
-class Buffer
+class buffer
 {
       public:
         std::vector<std::string> contents;
 
-        Buffer() = default;
+        buffer() = default;
 
         void update();
 };
 
-class Dummy : Buffer
+class dummy : buffer
 {
 };
 
-class DirectoryListing : public Buffer
+class directory_listing : public buffer
 {
       private:
         fs::directory_iterator it;
@@ -30,7 +30,7 @@ class DirectoryListing : public Buffer
       public:
         fs::path directory;
 
-        DirectoryListing(fs::path _directory);
+        directory_listing(fs::path _directory);
 
         void update();
 };

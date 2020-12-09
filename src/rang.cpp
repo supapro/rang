@@ -1,5 +1,6 @@
 #include "rang.hpp"
 #include "buffer.hpp"
+#include "window.hpp"
 #include <algorithm>
 #include <dirent.h>
 #include <iostream>
@@ -9,11 +10,12 @@
 
 int main(int argc, char *argv[])
 {
-        WINDOW *my_win;
         int width, height;
         int ch;
 
-        initscr();            /* Start curses mode 		*/
+        initscr(); /* Start curses mode 		*/
+        start_color();
+        use_default_colors();
         cbreak();             /* Line buffering disabled, Pass on
                                * everty thing to me 		*/
         keypad(stdscr, TRUE); /* I need that nifty F1 	*/
@@ -22,19 +24,15 @@ int main(int argc, char *argv[])
         height = LINES;
         width  = COLS;
         refresh();
-        WINDOW *box_win = newwin(height, width, 0, 0);
-        box(box_win, 0, 0);
-        my_win = newwin(height - 2, width - 2, 1, 1);
-        wrefresh(box_win);
-        wrefresh(my_win);
-        DirectoryListing lst(".");
+        window mywin(width - 2, height - 2, 1, 1);
+        directory_listing lst(".");
         lst.update();
-        for (std::string &dirname : lst.contents) {
-                wprintw(my_win, "%s\n", dirname.c_str());
+        int current = 0;
+        for (std::string &line : lst.contents) {
+                mywin.move_and_output(0, current++, line);
         }
-        wrefresh(my_win);
+        mywin.refresh();
         getch();
-
-        endwin(); /* End curses mode		  */
+        endwin();
         return 0;
 }

@@ -2,12 +2,12 @@
 #include <algorithm>
 #include <iostream>
 
-DirectoryListing::DirectoryListing(fs::path _directory) : directory(_directory)
+directory_listing::directory_listing(fs::path _directory) : directory(_directory)
 {
         it = fs::directory_iterator(directory);
 };
 
-void DirectoryListing::update()
+void directory_listing::update()
 {
         std::vector<fs::directory_entry> filtered;
         std::copy_if(fs::begin(it), fs::end(it), std::back_insert_iterator(filtered),
