@@ -1,7 +1,6 @@
 #ifndef __BUFFER_HPP
 #define __BUFFER_HPP
 
-#include "rang.hpp"
 #include <filesystem>
 #include <string>
 #include <vector>
@@ -15,7 +14,7 @@ class buffer
 
         buffer() = default;
 
-        void update();
+        virtual void update() = 0;
 };
 
 class dummy : buffer
@@ -24,9 +23,6 @@ class dummy : buffer
 
 class directory_listing : public buffer
 {
-      private:
-        fs::directory_iterator it;
-
       public:
         fs::path directory;
 

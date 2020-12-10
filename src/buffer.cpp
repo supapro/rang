@@ -1,15 +1,14 @@
 #include "buffer.hpp"
 #include <algorithm>
-#include <iostream>
 
 directory_listing::directory_listing(fs::path _directory) : directory(_directory)
 {
-        it = fs::directory_iterator(directory);
-};
+}
 
 void directory_listing::update()
 {
         std::vector<fs::directory_entry> filtered;
+        fs::directory_iterator it(directory);
         std::copy_if(fs::begin(it), fs::end(it), std::back_insert_iterator(filtered),
                      [](fs::directory_entry entry) -> bool {
                              return entry.path().filename().string().front() != '.';
