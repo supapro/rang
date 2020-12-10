@@ -6,6 +6,11 @@ using namespace console_io;
 ncurses::ncurses()
 {
         win_ptr = initscr();
+        if (win_ptr == nullptr) {
+                throw 1;
+        }
+        size_x = COLS;
+        size_y = LINES;
 }
 
 ncurses::~ncurses()

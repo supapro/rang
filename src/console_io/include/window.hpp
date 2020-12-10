@@ -35,6 +35,8 @@ class window
 
         void move_and_output(int x, int y, std::string s);
 
+        void outputln(int y, std::string s);
+
         window subwindow(int _size_x, int _size_y, int offset_x, int offset_y);
 };
 } // namespace console_io

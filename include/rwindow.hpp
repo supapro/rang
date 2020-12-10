@@ -11,11 +11,12 @@ class window
         buffer &tied_buf;
 
       public:
+        int offset_x = 0, offset_y = 0;
         window(console_io::window &&_win, buffer &_tied_buf);
 
         void refresh();
 
-        void shift_viewport(int shift);
+        void scroll_viewport(int shift);
 };
 
 #endif

@@ -7,6 +7,9 @@ window::window(int _size_x, int _size_y, int offset_x, int offset_y, window *_pa
     : size_x(_size_x), size_y(_size_y), parent(_parent)
 {
         win_ptr = newwin(size_y, size_x, offset_y, offset_x);
+        if (win_ptr == nullptr) {
+                throw 1; // TODO errors
+        }
         refresh();
 }
 
@@ -29,30 +32,49 @@ bool window::operator==(const window &other)
 
 void window::refresh()
 {
-        wrefresh(win_ptr);
+        if (wrefresh(win_ptr) == ERR) {
+                throw 1;
+        };
 }
 
 void window::move(int x, int y)
 {
-        wmove(win_ptr, y, x);
+        if (wmove(win_ptr, y, x) == ERR) {
+                throw 1;
+        };
 }
 
 void window::output(std::string s)
 {
-        waddstr(win_ptr, s.c_str());
+        if (waddstr(win_ptr, s.c_str()) == ERR) {
+                throw 1;
+        }
 }
 
 void window::move_and_output(int x, int y, std::string s)
 {
-        mvwaddstr(win_ptr, y, x, s.c_str());
+        if (mvwaddstr(win_ptr, y, x, s.c_str()) == ERR) {
+                throw 1;
+        }
+}
+
+void window::outputln(int y, std::string s)
+{
+        s.resize(size_x - 1, ' ');
+        if (mvwaddstr(win_ptr, y, 0, s.c_str()) == ERR) {
+                throw 1;
+        }
 }
 
 window window::subwindow(int _size_x, int _size_y, int offset_x, int offset_y)
 {
         window result;
         result.win_ptr = subwin(win_ptr, _size_y, _size_x, offset_y, offset_x);
-        result.size_x  = _size_x;
-        result.size_y  = _size_y;
+        if (result.win_ptr == nullptr) {
+                throw 1;
+        }
+        result.size_x = _size_x;
+        result.size_y = _size_y;
         subwindows.push_back(result);
         return result;
 }
