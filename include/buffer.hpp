@@ -14,6 +14,8 @@ class buffer
 
         buffer() = default;
 
+        virtual ~buffer() = default;
+
         virtual void update() = 0;
 };
 
