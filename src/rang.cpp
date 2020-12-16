@@ -12,8 +12,6 @@ int main(int argc, char *argv[])
         int height;
 
         console_io::ncurses root;
-        start_color();
-        use_default_colors();
         cbreak();             /* Line buffering disabled, Pass on
                                * everty thing to me 		*/
         keypad(stdscr, TRUE); /* I need that nifty F1 	*/
