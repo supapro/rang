@@ -12,30 +12,37 @@ class window
 {
       protected:
         WINDOW *win_ptr = nullptr;
+        int size_x      = 0;
+        int size_y      = 0;
+        int offset_x    = 0;
+        int offset_y    = 0;
 
       public:
-        int size_x     = 0;
-        int size_y     = 0;
         window *parent = nullptr;
         std::vector<window> subwindows;
 
         window() = default;
 
-        window(int _size_x, int _size_y, int offset_x, int offset_y, window *_parent = nullptr);
+        window(int _size_x, int _size_y, int _offset_x, int _offset_y, window *_parent = nullptr);
 
         ~window();
 
-        bool operator==(const window &other);
+        bool operator==(const window &other) const;
 
-        void refresh();
+        int get_size_x() const;
+        int get_size_y() const;
+        int get_offset_x() const;
+        int get_offset_y() const;
 
-        void move(int x, int y);
+        void refresh() const;
 
-        void output(std::string s);
+        void move(int x, int y) const;
 
-        void move_and_output(int x, int y, std::string s);
+        void output(std::string s) const;
 
-        void outputln(int y, std::string s);
+        void move_and_output(int x, int y, std::string s) const;
+
+        void outputln(int y, std::string s) const;
 
         window subwindow(int _size_x, int _size_y, int offset_x, int offset_y);
 };

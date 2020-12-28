@@ -6,7 +6,7 @@ window::window(console_io::window &&_win, buffer &_tied_buf) : win(_win), tied_b
 
 void window::refresh()
 {
-        for (int y = 0; y < win.size_y; ++y) {
+        for (int y = 0; y < win.get_size_y(); ++y) {
                 if (offset_y + y < tied_buf.contents.size()) {
                         win.outputln(y, tied_buf.contents[offset_y + y]);
                 } else {
