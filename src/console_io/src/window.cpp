@@ -30,19 +30,23 @@ bool window::operator==(const window &other) const
         return win_ptr == other.win_ptr;
 }
 
-int window::get_size_x() const {
+int window::get_size_x() const
+{
         return size_x;
 }
 
-int window::get_size_y() const {
+int window::get_size_y() const
+{
         return size_y;
 }
 
-int window::get_offset_x() const {
+int window::get_offset_x() const
+{
         return offset_x;
 }
 
-int window::get_offset_y() const {
+int window::get_offset_y() const
+{
         return offset_y;
 }
 
