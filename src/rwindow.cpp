@@ -1,5 +1,7 @@
 #include "rwindow.hpp"
 
+using namespace rang;
+
 window::window(console_io::window &&_win, buffer &_tied_buf) : win(_win), tied_buf(_tied_buf)
 {
 }

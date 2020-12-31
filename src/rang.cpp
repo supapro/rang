@@ -1,5 +1,6 @@
 #include "buffer.hpp"
 #include "console_io.hpp"
+#include "evloop.hpp"
 #include "rwindow.hpp"
 #include <algorithm>
 #include <iostream>
@@ -7,42 +8,46 @@
 
 int main(int argc, char *argv[])
 {
-        int width;
-        int height;
-
         console_io::ncurses root;
-        cbreak();             /* Line buffering disabled, Pass on
-                               * everty thing to me 		*/
-        keypad(stdscr, TRUE); /* I need that nifty F1 	*/
+        cbreak();              /* Line buffering disabled, Pass on
+                                *everty thing to me */
+        root.set_keypad(true); /* I need that nifty F1 	*/
+        keypad(stdscr, TRUE);
         noecho();
         curs_set(0);
         root.refresh();
         console_io::window mywin =
             root.subwindow(root.get_size_x() - 2, root.get_size_y() - 2, 1, 1);
-        directory_listing lst(".");
+        rang::directory_listing lst(".");
         lst.update();
-        window main(std::move(mywin), lst);
+        rang::window main(std::move(mywin), lst);
         root.refresh();
         int ch;
         main.refresh();
-        while ((ch = getch()) != KEY_F(1)) {
+        rang::event_loop loop;
+        std::function<void(int)> reaction_func = [&](int ch) {
+                if (ch == KEY_F(1)) {
+                        loop.stop();
+                        return;
+                }
                 try {
                         switch (ch) {
-                        case 'j':
                         case KEY_DOWN:
+                        case 'j':
                                 main.scroll_viewport(1);
                                 break;
-                        case 'k':
                         case KEY_UP:
+                        case 'k':
                                 main.scroll_viewport(-1);
                                 break;
+                        default:
+                                return;
                         }
-                        root.outputln(root.get_size_y() - 1, "OK");
-                } catch (int) {
-                        root.outputln(root.get_size_y() - 1, "Error found");
+                        main.refresh();
+                } catch (error_t) {
                 }
-                root.refresh();
-                main.refresh();
-        }
+        };
+        loop.set_input_reaction(reaction_func);
+        loop.run();
         return 0;
 }

@@ -98,3 +98,8 @@ window window::subwindow(int _size_x, int _size_y, int offset_x, int offset_y)
         subwindows.push_back(result);
         return result;
 }
+
+int window::set_keypad(bool value) const
+{
+        return keypad(win_ptr, (value ? TRUE : FALSE));
+}

@@ -1,6 +1,8 @@
 #include "buffer.hpp"
 #include <algorithm>
 
+using namespace rang;
+
 directory_listing::directory_listing(fs::path _directory) : directory(_directory)
 {
 }

@@ -45,6 +45,8 @@ class window
         void outputln(int y, std::string s) const;
 
         window subwindow(int _size_x, int _size_y, int offset_x, int offset_y);
+
+        int set_keypad(bool value) const;
 };
 } // namespace console_io
 

@@ -7,6 +7,8 @@
 
 namespace fs = std::filesystem;
 
+namespace rang
+{
 class buffer
 {
       public:
@@ -32,4 +34,5 @@ class directory_listing : public buffer
 
         void update();
 };
+} // namespace rang
 #endif

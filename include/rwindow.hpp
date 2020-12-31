@@ -1,9 +1,11 @@
-#ifndef __NWINDOW_HPP
-#define __NWINDOW_HPP
+#ifndef __RWINDOW_HPP
+#define __RWINDOW_HPP
 
 #include "buffer.hpp"
 #include "console_io.hpp"
 
+namespace rang
+{
 class window
 {
       private:
@@ -18,5 +20,6 @@ class window
 
         void scroll_viewport(int shift);
 };
+} // namespace rang
 
 #endif
